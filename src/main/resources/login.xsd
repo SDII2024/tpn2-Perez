@@ -1,0 +1,22 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.tp2.org/seccion1/ejercicio3/login"
+           xmlns:tns="http://www.tp2.org/seccion1/ejercicio3/login"
+           elementFormDefault="qualified">
+
+    <xs:element name="getLoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="usuario" type="xs:string" />
+                <xs:element name="clave" type="xs:string" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getLoginResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="validado" type="xs:boolean" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
