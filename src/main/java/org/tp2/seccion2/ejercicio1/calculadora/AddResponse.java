@@ -6,6 +6,7 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import lombok.Getter;
 
 
 /**
@@ -27,6 +28,7 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  * 
  */
+@Getter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "addResult"
@@ -34,16 +36,12 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "AddResponse")
 public class AddResponse {
 
+    /**
+     * -- GETTER --
+     *  Obtiene el valor de la propiedad addResult.
+     */
     @XmlElement(name = "AddResult")
     protected int addResult;
-
-    /**
-     * Obtiene el valor de la propiedad addResult.
-     * 
-     */
-    public int getAddResult() {
-        return addResult;
-    }
 
     /**
      * Define el valor de la propiedad addResult.

@@ -8,8 +8,7 @@ import org.springframework.ws.soap.client.core.SoapActionCallback;
 import org.tp2.seccion2.ejercicio1.calculadora.*;
 
 public class ClienteCalculadora extends WebServiceGatewaySupport {
-
-    String url = "http://www.dneonline.com/calculator.asmx";
+    private static final String URL = "http://www.dneonline.com/calculator.asmx";
 
     private static final Logger log = LoggerFactory.getLogger(ClienteCalculadora.class);
 
@@ -23,7 +22,7 @@ public class ClienteCalculadora extends WebServiceGatewaySupport {
         String soapAction = "http://tempuri.org/Add";
 
         return (AddResponse) getWebServiceTemplate()
-                .marshalSendAndReceive(url, request,
+                .marshalSendAndReceive(URL, request,
                         new SoapActionCallback(soapAction));
     }
 
@@ -37,7 +36,7 @@ public class ClienteCalculadora extends WebServiceGatewaySupport {
         String soapAction = "http://tempuri.org/Subtract";
 
         return (SubtractResponse) getWebServiceTemplate()
-                .marshalSendAndReceive(url, request,
+                .marshalSendAndReceive(URL, request,
                         new SoapActionCallback(soapAction));
     }
 
@@ -51,7 +50,7 @@ public class ClienteCalculadora extends WebServiceGatewaySupport {
         String soapAction = "http://tempuri.org/Multiply";
 
         return (MultiplyResponse) getWebServiceTemplate()
-                .marshalSendAndReceive(url, request,
+                .marshalSendAndReceive(URL, request,
                         new SoapActionCallback(soapAction));
     }
 
@@ -65,7 +64,7 @@ public class ClienteCalculadora extends WebServiceGatewaySupport {
         String soapAction = "http://tempuri.org/Divide";
 
         return (DivideResponse) getWebServiceTemplate()
-                .marshalSendAndReceive(url, request,
+                .marshalSendAndReceive(URL, request,
                         new SoapActionCallback(soapAction));
     }
 

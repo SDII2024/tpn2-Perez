@@ -6,6 +6,7 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import lombok.Getter;
 
 
 /**
@@ -27,6 +28,7 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  * 
  */
+@Getter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "fahrenheitToCelsiusResult"
@@ -34,20 +36,16 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "FahrenheitToCelsiusResponse")
 public class FahrenheitToCelsiusResponse {
 
-    @XmlElement(name = "FahrenheitToCelsiusResult")
-    protected String fahrenheitToCelsiusResult;
-
     /**
-     * Obtiene el valor de la propiedad fahrenheitToCelsiusResult.
-     * 
+     * -- GETTER --
+     *  Obtiene el valor de la propiedad fahrenheitToCelsiusResult.
+     *
      * @return
      *     possible object is
      *     {@link String }
-     *     
      */
-    public String getFahrenheitToCelsiusResult() {
-        return fahrenheitToCelsiusResult;
-    }
+    @XmlElement(name = "FahrenheitToCelsiusResult")
+    protected String fahrenheitToCelsiusResult;
 
     /**
      * Define el valor de la propiedad fahrenheitToCelsiusResult.

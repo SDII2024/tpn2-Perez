@@ -13,9 +13,9 @@ import org.tp2.seccion1.ejemplo.birthday.GetBirthdayRequest;
 
 @Endpoint
 public class BirthdayEndpoint {
-    private static final String NAMESPACE = "http://www.seccion1.org/ejemplo/birthday";
+    private static final String NAMESPACE = "http://www.tp2.org/seccion1/ejemplo/birthday";
 
-    private BirthdayService service;
+    private final BirthdayService service;
 
     @Autowired
     public BirthdayEndpoint(BirthdayService service) {

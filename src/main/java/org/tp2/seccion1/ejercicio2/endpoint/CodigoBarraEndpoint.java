@@ -11,9 +11,9 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 @Endpoint
 public class CodigoBarraEndpoint {
-    private static final String NAMESPACE = "http://www.seccion1.org/ejercicio2/codigoBarra";
+    private static final String NAMESPACE = "http://www.tp2.org/seccion1/ejercicio2/codigoBarra";
 
-    private CodigoBarraService service;
+    private final CodigoBarraService service;
 
     @Autowired
     public CodigoBarraEndpoint(CodigoBarraService service) {

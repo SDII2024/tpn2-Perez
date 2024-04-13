@@ -1,8 +1,6 @@
 package org.tp2.seccion2.ejercicio1.cliente;
 
 
-import javax.swing.*;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +10,19 @@ import org.tp2.seccion2.ejercicio1.calculadora.DivideResponse;
 import org.tp2.seccion2.ejercicio1.calculadora.MultiplyResponse;
 import org.tp2.seccion2.ejercicio1.calculadora.SubtractResponse;
 
-import static java.lang.Integer.parseInt;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 @Component
-public class UiCalculadora {
+public class UiCalculadora extends JFrame implements ActionListener {
     static Logger logger = LogManager.getLogger(UiCalculadora.class);
     private final ClienteCalculadora clienteCalculadora;
-    private JTextField inputA;
-    private JTextField inputB;
-    private ButtonGroup btnOperadores;
-    private JLabel labelResultado;
+    private JTextField textField;
+    private int op1 = 0;
+    private String operator = "";
+    private boolean isOperatorClicked = false;
 
     @Autowired
     public UiCalculadora(ClienteCalculadora clienteCalculadora) {
@@ -30,108 +31,106 @@ public class UiCalculadora {
 
     public void crearVentana() {
         SwingUtilities.invokeLater(() -> {
-        	JFrame frame = new JFrame("Calculadora");
-        	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        	setTitle("Calculadora");
+        	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        	iniciarComponentes(frame);
-        	frame.setSize(250, 250);
-        	frame.setLocationRelativeTo(null);
-        	frame.setVisible(true);
+        	iniciarComponentes();
+        	setSize(250, 250);
+        	setLocationRelativeTo(null);
+        	setVisible(true);
         });
     }
 
-    private void iniciarComponentes(JFrame frame) {
-        JLabel labelA = new JLabel("Numero A:");
-        JLabel labelB = new JLabel("Numero B:");
-        labelResultado = new JLabel("  ", SwingConstants.LEFT);
-        inputA = new JTextField();
-        inputB = new JTextField();
-        JButton btnCalcular = new JButton("Calcular");
+    private void iniciarComponentes() {
+        JPanel panel = new JPanel(new BorderLayout());
 
-        Box boxOperadores = Box.createHorizontalBox();
-        btnOperadores = new ButtonGroup();
-        for (String operador : new String[]{"+", "-", "*", "/"}) {
-            JToggleButton btnOperador = new JToggleButton(operador);
-            btnOperador.setActionCommand(operador);
-            boxOperadores.add(btnOperador);
-            btnOperadores.add(btnOperador);
+        textField = new JTextField(15);
+        textField.setEditable(false);
+        textField.setHorizontalAlignment(SwingConstants.RIGHT);
+        panel.add(textField, BorderLayout.NORTH);
+
+        JPanel buttonPanel = new JPanel(new GridLayout(4, 4, 7, 7));
+        String[] buttonLabels = {
+                "7", "8", "9", "/",
+                "4", "5", "6", "*",
+                "1", "2", "3", "-",
+                "0", "C", "=", "+"
+        };
+
+        for (String label : buttonLabels) {
+            JButton button = new JButton(label);
+            button.addActionListener(this);
+            buttonPanel.add(button);
         }
 
-        btnCalcular.addActionListener(e -> calcularResultado());
+        panel.add(buttonPanel, BorderLayout.CENTER);
+        add(panel);
 
-        JPanel panel = new JPanel();
-        GroupLayout layout = new GroupLayout(panel);
-        panel.setLayout(layout);
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
+        pack();
+        setLocationRelativeTo(null);
+    }
 
-        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
-                .addComponent(labelA)
-                .addComponent(inputA)
-                .addComponent(labelB)
-                .addComponent(inputB)
-                .addComponent(boxOperadores)
-                .addComponent(btnCalcular)
-                .addComponent(labelResultado));
-
-        layout.setVerticalGroup(layout.createSequentialGroup()
-                .addComponent(labelA)
-                .addComponent(inputA)
-                .addComponent(labelB)
-                .addComponent(inputB)
-                .addComponent(boxOperadores)
-                .addComponent(btnCalcular)
-                .addComponent(labelResultado));
-
-        frame.add(panel);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        switch (command) {
+            case "=" -> calcularResultado();
+            case "C" -> clear();
+            default -> {
+                if (command.matches("[0-9]+") || command.equals(".")) {
+                    if (isOperatorClicked) {
+                        textField.setText("");
+                        isOperatorClicked = false;
+                    }
+                    textField.setText(textField.getText() + command);
+                } else {
+                    if (!operator.isEmpty()) {
+                        calcularResultado();
+                    }
+                    op1 = Integer.parseInt(textField.getText());
+                    operator = command;
+                    isOperatorClicked = true;
+                }
+            }
+        }
     }
 
     private void calcularResultado() {
-        try {
-            String num1 = inputA.getText();
-            String num2 = inputB.getText();
-
-            if (num1.isEmpty() || num2.isEmpty()) {
-                labelResultado.setText("Ingrese ambos valores");
-                return;
+        int op2 = Integer.parseInt(textField.getText());
+        double resultado = 0;
+        switch (operator) {
+            case "+" -> {
+                AddResponse responseSumar = clienteCalculadora.sumar(op1, op2);
+                resultado = responseSumar.getAddResult();
             }
-
-            int op1 = parseInt(num1);
-            int op2 = parseInt(num2);
-
-            String oper = btnOperadores.getSelection().getActionCommand();
-
-            int resultado;
-            switch (oper) {
-                case "+" -> {
-                    AddResponse responseSumar = clienteCalculadora.sumar(op1,op2);
-                    resultado = responseSumar.getAddResult();
-                }
-                case "-" -> {
-                    SubtractResponse responseRestar = clienteCalculadora.restar(op1,op2);
-                    resultado = responseRestar.getSubtractResult();
-                }
-                case "*" -> {
-                    MultiplyResponse responseMultiplicar = clienteCalculadora.multiplicar(op1,op2);
-                    resultado = responseMultiplicar.getMultiplyResult();
-                }
-                case "/" -> {
-                    DivideResponse responseDividir = clienteCalculadora.dividir(op1,op2);
-                    resultado = responseDividir.getDivideResult();
-                }
-                default -> {
-                    labelResultado.setText("Operador no valido");
+            case "-" -> {
+                SubtractResponse responseRestar = clienteCalculadora.restar(op1, op2);
+                resultado = responseRestar.getSubtractResult();
+            }
+            case "*" -> {
+                MultiplyResponse responseMultiplicar = clienteCalculadora.multiplicar(op1, op2);
+                resultado = responseMultiplicar.getMultiplyResult();
+            }
+            case "/" -> {
+                if (op2 == 0) {
+                    JOptionPane.showMessageDialog(this, "No se puede dividir por cero", "Error", JOptionPane.ERROR_MESSAGE);
+                    clear();
                     return;
                 }
+                DivideResponse responseDividir = clienteCalculadora.dividir(op1, op2);
+                resultado = responseDividir.getDivideResult();
             }
-
-            labelResultado.setText("Resultado: " + resultado);
-        } catch (NumberFormatException ex) {
-            labelResultado.setText("Los valores deben ser numeros");
-        } catch (RuntimeException ex) {
-            logger.error("Error al realizar la operacion: {}", ex.getMessage());
-            labelResultado.setText("Error al realizar la operacion");
+            default -> textField.setText("Operacion no valida");
         }
+        textField.setText(String.valueOf(resultado));
+        operator = "";
+    }
+
+    private void clear() {
+        textField.setText("");
+        op1 = 0;
+        operator = "";
+        isOperatorClicked = false;
     }
 }
 

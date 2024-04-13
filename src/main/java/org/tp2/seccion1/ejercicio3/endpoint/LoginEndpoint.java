@@ -11,9 +11,9 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 @Endpoint
 public class LoginEndpoint {
-    private static final String NAMESPACE = "http://www.seccion1.org/ejercicio3/login";
+    private static final String NAMESPACE = "http://www.tp2.org/seccion1/ejercicio3/login";
 
-    private LoginService service;
+    private final LoginService service;
 
     @Autowired
     public LoginEndpoint(LoginService service) {

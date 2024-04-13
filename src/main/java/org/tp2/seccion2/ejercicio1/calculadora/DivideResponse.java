@@ -6,6 +6,7 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import lombok.Getter;
 
 
 /**
@@ -27,6 +28,7 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  * 
  */
+@Getter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "divideResult"
@@ -34,16 +36,12 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "DivideResponse")
 public class DivideResponse {
 
+    /**
+     * -- GETTER --
+     *  Obtiene el valor de la propiedad divideResult.
+     */
     @XmlElement(name = "DivideResult")
     protected int divideResult;
-
-    /**
-     * Obtiene el valor de la propiedad divideResult.
-     * 
-     */
-    public int getDivideResult() {
-        return divideResult;
-    }
 
     /**
      * Define el valor de la propiedad divideResult.

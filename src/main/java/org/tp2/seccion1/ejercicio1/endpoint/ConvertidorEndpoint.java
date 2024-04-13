@@ -13,9 +13,9 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 @Endpoint
 public class ConvertidorEndpoint {
-    private static final String NAMESPACE = "http://www.seccion1.org/ejercicio1/convertidor";
+    private static final String NAMESPACE = "http://www.tp2.org/seccion1/ejercicio1/convertidor";
 
-    private ConvertidorService service;
+    private final ConvertidorService service;
 
     @Autowired
     public ConvertidorEndpoint(ConvertidorService service) {

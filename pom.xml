@@ -63,9 +63,6 @@
 			<version>3.45.1.0</version>
 		</dependency>
 
-
-
-
 	</dependencies>
 
 	<build>
@@ -75,6 +72,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 
+			<!-- Seccion 1 -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>jaxb2-maven-plugin</artifactId>
@@ -104,7 +102,7 @@
 				</configuration>
 			</plugin>
 
-
+			<!-- Seccion 2 -->
 			<plugin>
 				<groupId>com.sun.xml.ws</groupId>
 				<artifactId>jaxws-maven-plugin</artifactId>
@@ -116,35 +114,42 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
 					<!-- ej1 Calculadora-->
-
-					<packageName>org.tp2.seccion2.ejercicio1.calculadora</packageName>
-					<wsdlUrls>
-						<wsdlUrl>http://www.dneonline.com/calculator.asmx?wsdl</wsdlUrl>
-					</wsdlUrls>
-					<sourceDestDir>${project.basedir}/src/main/java/</sourceDestDir>
-					<destDir>${classesDir}</destDir>
-
-					<!-- ej2 Temperatura-->
+					<configuration>
 					<!--
-					<packageName>org.tp2.seccion2.ejercicio2.temperatura</packageName>
-					<wsdlUrls>
-						<wsdlUrl>https://www.w3schools.com/xml/tempconvert.asmx?WSDL</wsdlUrl>
-					</wsdlUrls>
-					<sourceDestDir>${project.basedir}/src/main/java/</sourceDestDir>
-					<destDir>${classesDir}</destDir>
-					-->
+                    <packageName>org.tp2.seccion2.ejercicio1.calculadora</packageName>
+                    <wsdlUrls>
+                        <wsdlUrl>http://www.dneonline.com/calculator.asmx?wsdl</wsdlUrl>
+                    </wsdlUrls>
+                    <sourceDestDir>${project.basedir}/src/main/java/</sourceDestDir>
+                    <destDir>${classesDir}</destDir>
+                    -->
+
+                     <!-- ej2 Temperatura-->
+
+						<!--
+                        <packageName>org.tp2.seccion2.ejercicio2.temperatura</packageName>
+                        <wsdlUrls>
+                            <wsdlUrl>https://www.w3schools.com/xml/tempconvert.asmx?WSDL</wsdlUrl>
+                        </wsdlUrls>
+                        <sourceDestDir>${project.basedir}/src/main/java/</sourceDestDir>
+                        <destDir>${classesDir}</destDir>
+                        -->
+
 					<!-- ej3 Paises-->
-					<!--
-					<packageName>org.tp2.seccion2.ejercicio3.paises</packageName>
-					<wsdlUrls>
-						<wsdlUrl>http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL</wsdlUrl>
-					</wsdlUrls>
-					<sourceDestDir>${project.basedir}/src/main/java/</sourceDestDir>
-					<destDir>${classesDir}</destDir>
-					-->
-				</configuration>
+
+						<!--
+                        <packageName>org.tp2.seccion2.ejercicio3.paises</packageName>
+                        <wsdlUrls>
+                            <wsdlUrl>http://webservices.oorsprong.org/websamples.countryinfo/CountryInfoService.wso?WSDL</wsdlUrl>
+                        </wsdlUrls>
+                        <sourceDestDir>${project.basedir}/src/main/java/</sourceDestDir>
+                        <destDir>${classesDir}</destDir>
+                        -->
+
+					</configuration>
+
+
 			</plugin>
 		</plugins>
 

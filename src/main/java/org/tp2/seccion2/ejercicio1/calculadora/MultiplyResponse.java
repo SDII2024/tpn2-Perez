@@ -6,6 +6,7 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import lombok.Getter;
 
 
 /**
@@ -27,6 +28,7 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  * 
  */
+@Getter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "multiplyResult"
@@ -34,16 +36,12 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "MultiplyResponse")
 public class MultiplyResponse {
 
+    /**
+     * -- GETTER --
+     *  Obtiene el valor de la propiedad multiplyResult.
+     */
     @XmlElement(name = "MultiplyResult")
     protected int multiplyResult;
-
-    /**
-     * Obtiene el valor de la propiedad multiplyResult.
-     * 
-     */
-    public int getMultiplyResult() {
-        return multiplyResult;
-    }
 
     /**
      * Define el valor de la propiedad multiplyResult.
